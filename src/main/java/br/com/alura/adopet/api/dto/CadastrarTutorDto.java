@@ -1,20 +1,20 @@
 package br.com.alura.adopet.api.dto;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import br.com.alura.adopet.api.model.Adocao;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public record CadastrarTutorDto(
-                        @NotBlank
-                        String nome,
+        @NotBlank String nome,
 
+        @NotBlank @Pattern(regexp = "\\(?\\d{2}\\)?\\d?\\d{4}-?\\d{4}") String telefone,
 
-                        @NotBlank
-                        @Pattern(regexp = "\\(?\\d{2}\\)?\\d?\\d{4}-?\\d{4}")
-                        String telefone,
+        @NotBlank @Email String email,
 
-
-                        @NotBlank
-                        @Email
-                        String email
-                    ) {}
+        @JsonManagedReference("tutor_adocoes") List<Adocao> adocoes) {
+}

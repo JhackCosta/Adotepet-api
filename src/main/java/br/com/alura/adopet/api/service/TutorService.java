@@ -21,6 +21,7 @@ public class TutorService {
         tutor.setNome(dto.nome());
         tutor.setTelefone(dto.telefone());
         tutor.setEmail(dto.email());
+        tutor.setAdocoes(dto.adocoes());
 
         boolean telefoneJaCadastrado = repository.existsByTelefone(tutor.getTelefone());
         boolean emailJaCadastrado = repository.existsByEmail(tutor.getEmail());
@@ -39,6 +40,7 @@ public class TutorService {
         tutor.setNome(dto.nome());
         tutor.setTelefone(dto.telefone());
         tutor.setEmail(dto.email());
+        tutor.setAdocoes(dto.adocoes());
 
         repository.save(tutor);
     }
