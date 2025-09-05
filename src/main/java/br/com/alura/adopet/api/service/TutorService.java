@@ -9,7 +9,6 @@ import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.model.Tutor;
 import br.com.alura.adopet.api.repository.TutorRepository;
 
-
 @Service
 public class TutorService {
 
@@ -36,15 +35,12 @@ public class TutorService {
     public void atualizar(AtualizarCadastroTutorDto dto) {
 
         Tutor tutor = repository.getReferenceById(dto.id());
-        
+
         tutor.setNome(dto.nome());
         tutor.setTelefone(dto.telefone());
         tutor.setEmail(dto.email());
 
         repository.save(tutor);
     }
-
-
-
 
 }
