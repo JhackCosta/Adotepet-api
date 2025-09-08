@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.alura.adopet.api.dto.CadastrarAbrigoDto;
+import br.com.alura.adopet.api.dto.CadastrarPetDto;
 import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.model.Pet;
@@ -23,7 +25,14 @@ public class AbrigoService {
     }
 
     @Transactional
-    public void cadastrar(Abrigo abrigo) {
+    public void cadastrar(CadastrarAbrigoDto dto) {
+
+        Abrigo abrigo = new Abrigo();
+        abrigo.setNome(dto.nome());
+        abrigo.setTelefone(dto.telefone());
+        abrigo.setEmail(dto.email());
+        abrigo.setPets(dto.pets());
+
         boolean nomeJaCadastrado = repository.existsByNome(abrigo.getNome());
         boolean telefoneJaCadastrado = repository.existsByTelefone(abrigo.getTelefone());
         boolean emailJaCadastrado = repository.existsByEmail(abrigo.getEmail());
@@ -56,7 +65,20 @@ public class AbrigoService {
     }
 
     @Transactional
-    public void cadastrarPet(String idOuNome,Pet pet) {
+    public void cadastrarPet(String idOuNome,CadastrarPetDto dto) {
+
+        Pet pet = new Pet();
+        pet.setTipo(dto.tipo());
+        pet.setNome(dto.nome());
+        pet.setRaca(dto.raca());
+        pet.setIdade(dto.idade());
+        pet.setCor(dto.cor());
+        pet.setPeso(dto.peso());
+        pet.setAdotado(dto.adotado());
+        pet.setAdocao(dto.adocao());
+        pet.setAbrigo(dto.abrigo());
+
+
         try {
             Long id = Long.parseLong(idOuNome);
             Abrigo abrigo = repository.getReferenceById(id);

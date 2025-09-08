@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.alura.adopet.api.dto.CadastrarAbrigoDto;
+import br.com.alura.adopet.api.dto.CadastrarPetDto;
 import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.service.AbrigoService;
@@ -31,10 +33,10 @@ public class AbrigoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody @Valid Abrigo abrigo) {
+    public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastrarAbrigoDto dto) {
 
         try {
-            service.cadastrar(abrigo);
+            service.cadastrar(dto);
             return ResponseEntity.ok().body("Abrigo cadastrado com sucesso!");
         } catch (ValidationException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -54,10 +56,10 @@ public class AbrigoController {
 
     @PostMapping("/{idOuNome}/pets")
     @Transactional
-    public ResponseEntity<String> cadastrarPet(@PathVariable String idOuNome, @RequestBody @Valid Pet pet) {
+    public ResponseEntity<String> cadastrarPet(@PathVariable String idOuNome, @RequestBody @Valid CadastrarPetDto dto) {
 
         try {
-            service.cadastrarPet(idOuNome, pet);
+            service.cadastrarPet(idOuNome, dto);
             return ResponseEntity.ok().body("Pet cadastrado com sucesso!");
         } catch (ValidationException e) {
             return ResponseEntity.badRequest().build();
