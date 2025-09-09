@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +24,7 @@ public class Tutor {
 
     private String email;
 
-    @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tutor")
     private List<Adocao> adocoes;
 
     @Override

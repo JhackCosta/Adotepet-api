@@ -5,13 +5,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.model.Adocao;
 import br.com.alura.adopet.api.model.TipoPet;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record CadastrarPetDto(
-                @Enumerated(EnumType.STRING) @NotNull TipoPet tipo,
+                @NotNull TipoPet tipo,
 
                 @NotBlank String nome,
 

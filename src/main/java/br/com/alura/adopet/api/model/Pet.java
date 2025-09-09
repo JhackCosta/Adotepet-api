@@ -3,6 +3,9 @@ package br.com.alura.adopet.api.model;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +21,7 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private TipoPet tipo;
 
     private String nome;
@@ -32,10 +36,10 @@ public class Pet {
 
     private Boolean adotado;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Abrigo abrigo;
 
-    @OneToOne(mappedBy = "pet")
+    @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
     private Adocao adocao;
 
     @Override
