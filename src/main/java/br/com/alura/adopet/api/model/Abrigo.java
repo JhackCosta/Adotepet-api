@@ -3,6 +3,7 @@ package br.com.alura.adopet.api.model;
 import java.util.List;
 import java.util.Objects;
 
+import br.com.alura.adopet.api.dto.AbrigoInputDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +29,18 @@ public class Abrigo {
     @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL)
     private List<Pet> pets;
 
+    public Abrigo(AbrigoInputDto dto) {
+        this.nome = dto.nome();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Abrigo abrigo = (Abrigo) o;
         return Objects.equals(id, abrigo.id);
     }
@@ -49,19 +58,19 @@ public class Abrigo {
         this.id = id;
     }
 
-    public String getNome() {
+    public String getName() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setName(String nome) {
         this.nome = nome;
     }
 
-    public String getTelefone() {
+    public String getPhone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setPhone(String telefone) {
         this.telefone = telefone;
     }
 

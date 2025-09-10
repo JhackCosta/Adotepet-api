@@ -21,4 +21,14 @@ public class EmailService {
         emailSender.send(email);
     }
 
+    public void sendEmail(String to, String subject, String text) {
+
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setFrom("adopet@email.com.br");
+        email.setTo(to);
+        email.setSubject(subject);
+        email.setText(text);
+        emailSender.send(email);
+    }
+
 }

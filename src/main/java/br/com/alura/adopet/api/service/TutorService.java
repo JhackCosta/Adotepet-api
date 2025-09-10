@@ -3,9 +3,9 @@ package br.com.alura.adopet.api.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.alura.adopet.api.dto.AtualizarCadastroTutorDto;
-import br.com.alura.adopet.api.dto.CadastrarTutorDto;
-import br.com.alura.adopet.api.exception.ValidacaoException;
+import br.com.alura.adopet.api.dto.TutorInputDto;
+import br.com.alura.adopet.api.dto.TutorPutDto;
+import br.com.alura.adopet.api.exception.ValidationException;
 import br.com.alura.adopet.api.model.Tutor;
 import br.com.alura.adopet.api.repository.TutorRepository;
 
@@ -15,34 +15,21 @@ public class TutorService {
     @Autowired
     private TutorRepository repository;
 
-    public void cadastrar(CadastrarTutorDto dto) {
+    public void cadastrar(TutorInputDto dto) {
 
-        Tutor tutor = new Tutor();
-        tutor.setNome(dto.nome());
-        tutor.setTelefone(dto.telefone());
-        tutor.setEmail(dto.email());
-        tutor.setAdocoes(dto.adocoes());
+        boolean jaCadastrado = repository.existsByTelefoneOrEmail(dto.telefone(), dto.email());
 
-        boolean telefoneJaCadastrado = repository.existsByTelefone(tutor.getTelefone());
-        boolean emailJaCadastrado = repository.existsByEmail(tutor.getEmail());
-
-        if (telefoneJaCadastrado || emailJaCadastrado) {
-            throw new ValidacaoException("Dados já cadastrados para outro tutor!");
-        } else {
-            repository.save(tutor);
+        if (jaCadastrado) {
+            throw new ValidationException("Dados já cadastrados para outro tutor!");
         }
+
+        repository.save(new Tutor(dto));
     }
 
-    public void atualizar(AtualizarCadastroTutorDto dto) {
+    public void atualizar(TutorPutDto dto) {
 
         Tutor tutor = repository.getReferenceById(dto.id());
-
-        tutor.setNome(dto.nome());
-        tutor.setTelefone(dto.telefone());
-        tutor.setEmail(dto.email());
-        tutor.setAdocoes(dto.adocoes());
-
-        repository.save(tutor);
+        tutor.atualizarDados(dto);
     }
 
 }

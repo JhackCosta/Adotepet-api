@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.adopet.api.dto.AtualizarCadastroTutorDto;
-import br.com.alura.adopet.api.dto.CadastrarTutorDto;
+import br.com.alura.adopet.api.dto.TutorInputDto;
+import br.com.alura.adopet.api.dto.TutorPutDto;
 import br.com.alura.adopet.api.service.TutorService;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
@@ -24,10 +24,10 @@ public class TutorController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastrarTutorDto dto) {
+    public ResponseEntity<String> cadastrar(@RequestBody @Valid TutorInputDto dto) {
 
         try {
-            
+
             service.cadastrar(dto);
             return ResponseEntity.ok().body("Tutor cadastrado com sucesso!");
 
@@ -38,7 +38,7 @@ public class TutorController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizarCadastroTutorDto dto) {
+    public ResponseEntity<String> atualizar(@RequestBody @Valid TutorPutDto dto) {
 
         service.atualizar(dto);
         return ResponseEntity.ok().build();

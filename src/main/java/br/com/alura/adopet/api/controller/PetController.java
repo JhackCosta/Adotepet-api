@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.adopet.api.model.Pet;
+import br.com.alura.adopet.api.dto.PetResponseDto;
 import br.com.alura.adopet.api.service.PetService;
 
 @RestController
@@ -19,9 +19,9 @@ public class PetController {
     private PetService service;
 
     @GetMapping
-    public ResponseEntity<List<Pet>> listarTodosDisponiveis() {
+    public ResponseEntity<List<PetResponseDto>> listarTodosDisponiveis() {
 
-        List<Pet> disponiveis = service.listarTodosDisponiveis();
+        List<PetResponseDto> disponiveis = service.listarTodosDisponiveis();
         return ResponseEntity.ok(disponiveis);
     }
 
